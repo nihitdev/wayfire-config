@@ -1,0 +1,108 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 36,
+  "margin-top": 8,
+  "margin-left": 12,
+  "margin-right": 12,
+  "spacing": 4,
+  "modules-left": ["custom/wayfire", "wlr/taskbar", "custom/cpucat"],
+  "modules-center": ["custom/skull"],
+  "modules-right": ["mpris", "group/connectivity", "group/system", "clock", "custom/notifications", "tray", "custom/power"],
+
+  "custom/wayfire": {
+    "format": "  ARCHNEMESIS",
+    "tooltip": true,
+    "tooltip-format": "Wayfire  •  Super+Ctrl+Alt+E: Expo"
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 18,
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": ["waybar"]
+  },
+  "custom/cpucat": {
+    "exec": "$HOME/.config/waybar/scripts/catloop.sh",
+    "return-type": "json",
+    "on-click": "$HOME/.config/waybar/scripts/tui.sh system",
+    "tooltip": false
+  },
+  "custom/skull": {
+    "exec": "$HOME/.config/waybar/scripts/skull.sh",
+    "return-type": "json",
+    "tooltip": false
+  },
+  "mpris": {
+    "format": "{player_icon} {title}",
+    "format-paused": "󰏤 {title}",
+    "max-length": 34,
+    "tooltip-format": "{artist} — {album}",
+    "player-icons": {"default": "󰝚", "spotify": "", "firefox": "", "chromium": ""},
+    "on-click": "playerctl play-pause",
+    "on-click-right": "$HOME/.config/waybar/scripts/tui.sh music"
+  },
+  "group/connectivity": {
+    "orientation": "horizontal",
+    "modules": ["network", "bluetooth"]
+  },
+  "network": {
+    "format-wifi": " {essid}",
+    "format-ethernet": "󰈀 Wired",
+    "format-disconnected": "󰖪 Offline",
+    "tooltip-format": "{ifname}: {ipaddr}",
+    "on-click": "$HOME/.config/waybar/scripts/tui.sh network"
+  },
+  "bluetooth": {
+    "format-on": "󰂯",
+    "format-off": "󰂲",
+    "format-disabled": "󰂲",
+    "tooltip-format": "{status}",
+    "on-click": "$HOME/.config/waybar/scripts/tui.sh bluetooth"
+  },
+  "group/system": {
+    "orientation": "horizontal",
+    "modules": ["wireplumber", "backlight", "battery"]
+  },
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 Muted",
+    "format-icons": ["", "", ""],
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "$HOME/.config/waybar/scripts/tui.sh audio"
+  },
+  "backlight": {
+    "format": "󰃟 {percent}%",
+    "on-click": "brightnessctl set 5%+",
+    "on-click-right": "brightnessctl set 5%-"
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂"],
+    "states": {"warning": 30, "critical": 15},
+    "tooltip-format": "{timeTo}",
+    "on-click": "$HOME/.config/waybar/scripts/tui.sh system"
+  },
+  "clock": {
+    "format": "  {:%a %d %b  %H:%M}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {"mode": "month", "format": {"today": "<span color='#c4a7e7'><b>{}</b></span>"}},
+    "on-click": "$HOME/.config/waybar/scripts/tui.sh calendar"
+  },
+  "custom/notifications": {
+    "exec": "$HOME/.config/waybar/scripts/notifications.sh",
+    "return-type": "json",
+    "format": "{}",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  "tray": {"icon-size": 16, "spacing": 7},
+  "custom/power": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "$HOME/.config/wayfire/scripts/powermenu.sh"
+  }
+}
