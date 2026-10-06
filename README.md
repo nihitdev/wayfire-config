@@ -1,36 +1,86 @@
+<div align="center">
+
 # ARCHNEMESIS · Wayfire
 
-Wayfire 0.11 configuration with the same daily applications and controls as the other ARCHNEMESIS sessions, using Wayfire's own floating-first window model and effects.
+**The same daily controls, with Wayfire’s own plugins and desktop effects.**
 
-## Files
+<img src="screenshots/neovim-home.png" alt="Neovim open in Kitty in the ARCHNEMESIS Wayfire session" width="100%">
 
-- `wayfire.ini` — canonical Wayfire config; Wayfire does not provide config includes.
-- `waybar.jsonc`, `waybar.css` — Wayfire-specific bar. The taskbar is provided by the foreign-toplevel protocol; use Expo for the workspace overview.
-- `scripts/` — session startup, wallpaper, lock, and power helpers.
-- `hyprlock.conf` — generated at lock time from the existing Hyprlock template; it is not a shared config.
-- `current-wallpaper` — created by the Wayfire wallpaper picker.
+</div>
 
-## Controls
+---
+
+## Install
+
+```sh
+git clone git@github.com:nihitdev/wayfire-config.git ~/Projects/wayfire-config
+cd ~/Projects/wayfire-config
+./install.sh
+```
+
+The installer checks Arch packages and shared workflows, asks before installing or copying files, and does not create backups. `./install.sh --check` only reports requirements; `--yes` skips the installer confirmation. Helium is installed through an existing `yay` or `paru` helper when needed.
+
+Select **Wayfire** from your display manager after installation. The installer does not start or restart the compositor and does not edit other compositor or application configs.
+
+---
+
+## Daily controls
 
 | Keys | Action |
 | --- | --- |
-| Super+Return / B / E / Space / G / N | Kitty / Helium / Dolphin / Rofi / Kdenlive / Kitty + Neovim |
+| Super+Return / B / E / Space | Kitty / Helium / Dolphin / Rofi |
+| Super+G / N | Kdenlive / Kitty with Neovim |
 | Super+W | Close focused window |
 | Super+H/J/K and Right | Directional focus for tiled windows |
 | Super+L | Toggle Simple Tile for the focused window |
 | Super+M | Toggle maximize |
-| Super+1…0 | Switch among 10 workspaces |
-| Super+Shift+1…0 | Move focused window to a workspace and follow |
-| Super+Ctrl+Alt+E | Expo workspace overview |
-| Super+Ctrl+Alt+P | Scale window overview |
-| Super+Ctrl+Alt+C | Wayfire desktop cube; Super+Ctrl+Alt+Left/Right rotate it |
-| Super+Keypad 1…9/0 | Place/restore windows with Grid |
+| Super+1…0 | Switch among ten workspaces |
+| Super+Shift+1…0 | Move the focused window to a workspace and follow |
+| Super+Ctrl+Alt+E / P | Expo workspaces / Scale window overview |
+| Super+Ctrl+Alt+C / Super+Ctrl+Alt+Left/Right | Desktop cube / rotate cube |
+| Super+Keypad 1…9 / 0 | Grid placement / restore |
 | Super+Left mouse / Super+Right mouse | Move / resize windows |
-| Super+V | Existing Rofi clipboard workflow |
-| Alt+Z or Print / Shift+Print | Existing region / full screenshot workflow |
+| Super+V | Rofi clipboard history |
+| Alt+Z or Print / Shift+Print | Region / full screenshot |
 | Super+Alt+Space / Super+Alt+L | Wallpaper picker / lock |
 | Volume, brightness, media keys | wpctl / brightnessctl / playerctl |
 
-Wayfire's Simple Tile plugin provides one key per focus direction, so H/J/K stay assigned and Right is the horizontal arrow binding; the other arrow directions cannot be added to those same plugin actions in this config. Tiling is opt-in per window, leaving Wayfire's floating behavior as the default. The Waybar taskbar shows open windows, while Expo provides workspace navigation because Wayfire does not expose the workspace protocol required by Waybar's workspace buttons.
+Wayfire stays floating by default. Super+L enables Simple Tile for the focused window; focus movement then uses H/J/K and Right. Expo is the workspace overview. The Waybar taskbar lists open windows because Wayfire does not provide the workspace protocol Waybar needs for workspace buttons.
 
-No Wayfire process is started by installation or validation. Select the Wayfire session from the login screen when ready.
+---
+
+## Wayfire features
+
+- **Expo and Scale** for workspace and window overviews
+- **Desktop cube** on a secondary binding
+- **Simple Tile** as opt-in per-window tiling
+- **Grid, snapping, and mouse move/resize**
+- **Restrained animations, blur, rounded decorations, and wobbly windows**
+- **Window placement and Wayfire-native workspace navigation**
+
+<details>
+<summary>Kitty and Wayfire configuration</summary>
+<br>
+<img src="screenshots/kitty-wayfire-config.png" alt="Wayfire configuration and familiar keybindings edited in Kitty and Neovim" width="100%">
+</details>
+
+---
+
+## Existing setup requirements
+
+This config uses your existing Rofi launcher, clipboard and themes; Waybar helper scripts; Hyprland screenshot script; Hyprlock template; battery helper; and CozyPixels wallpaper folder. The installer reports missing shared files and leaves them untouched. Those files and themes are not included in this repo.
+
+Wayfire uses one canonical `wayfire.ini`; the remaining files are the Waybar presentation and session helper scripts. The lock script generates a Wayfire-local `hyprlock.conf` at lock time, and the wallpaper picker creates `current-wallpaper` when you choose an image. Both generated files are ignored by Git.
+
+---
+
+## Repository layout
+
+```text
+wayfire.ini       Wayfire configuration
+waybar.jsonc      Wayfire bar modules
+waybar.css        Rosé Pine styling
+scripts/          Session, wallpaper, lock, and power helpers
+screenshots/      Session previews
+install.sh        Arch dependency check and installer
+```
